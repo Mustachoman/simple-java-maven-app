@@ -10,6 +10,12 @@ pipeline {
             steps {
                 sh 'mvn -B -DskipTests clean package'
             }
+            post{
+                always {
+                    archiveArtifacts artifacts: 'build/libs/**/*.jar', fingerprint: true
+                    junit 'build/reports/**/*.xml'
+                }
+        }
         }
         stage('Test') {
             steps {
@@ -25,13 +31,6 @@ pipeline {
             steps {
                 sh './jenkins/scripts/deliver.sh' 
             }
-        }
-    }
-
-    post{
-        always {
-            archiveArtifacts artifacts: 'build/libs/**/*.jar', fingerprint: true
-            junit 'build/reports/**/*.xml'
         }
     }
 }
