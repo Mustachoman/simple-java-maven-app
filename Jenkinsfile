@@ -35,7 +35,7 @@ pipeline {
         }
         stage ("SonarQube analysis") {
           steps {
-            withSonarQubeEnv('SonarQube') {
+            withSonarQubeEnv('sonarqube') {
               sh "../../../sonar-scanner-2.9.0.670/bin/sonar-scanner"
             }
             def qualitygate = waitForQualityGate()
