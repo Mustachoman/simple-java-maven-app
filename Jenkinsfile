@@ -33,6 +33,11 @@ pipeline {
             
           }
         }
+        stage('SonarQube') {
+          steps {
+            waitForQualityGate()
+          }
+        }
       }
     }
     stage('Deliver') {
